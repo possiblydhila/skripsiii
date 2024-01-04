@@ -14,7 +14,7 @@ from gunicorn.app.base import BaseApplication
 import download
 
 
-app = Flask(_name_)
+app = Flask(__name__)
 
 # Get the absolute path to the model file
 model_path = os.path.join(os.path.dirname(_file_), 'best_model92.h5')
@@ -77,7 +77,7 @@ class Server(BaseApplication):
         return self.application
 
 
-if _name_ == '_main_':
+if __name__ == '__main__':
     # app.run(debug=True)
     options = {
         'bind': '0.0.0.0:5000',
