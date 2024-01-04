@@ -11,6 +11,8 @@ import tempfile
 import os
 from gunicorn.app.base import BaseApplication
 
+import download
+
 
 app = Flask(_name_)
 
@@ -83,3 +85,4 @@ if _name_ == '_main_':
     }
     server = Server(app, options)
     server.run()
+    download.run()
