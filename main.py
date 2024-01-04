@@ -2,19 +2,20 @@ from flask import Flask, request, jsonify
 import tensorflow as tf
 from tensorflow import keras
 from keras.models import load_model
-from keras.preprocessing import image
+from tensorflow.keras.preprocessing import image
 
 from PIL import Image
 import numpy as np
 import tensorflow as tf
 import tempfile
 import os
+from gunicorn.app.base import BaseApplication
 
 
-app = Flask(__name__)
+app = Flask(_name_)
 
 # Get the absolute path to the model file
-model_path = os.path.join(os.path.dirname(__file__), 'best_model92.h5')
+model_path = os.path.join(os.path.dirname(_file_), 'best_model92.h5')
 
 # Load the model using the absolute path
 model = tf.keras.models.load_model(model_path)
@@ -60,5 +61,25 @@ def predict():
     }
     return jsonify(response)
 
-if __name__ == '__main__':
-    app.run()
+class Server(BaseApplication):
+    def _init_(self, app, options=None):
+        self.options = options or {}
+        self.application = app
+        super()._init_()
+
+    def load_config(self):
+        for key, value in self.options.items():
+            self.cfg.set(key, value)
+
+    def load(self):
+        return self.application
+
+
+if _name_ == '_main_':
+    # app.run(debug=True)
+    options = {
+        'bind': '0.0.0.0:5000',
+        'workers': 4 
+    }
+    server = Server(app, options)
+    server.run()
