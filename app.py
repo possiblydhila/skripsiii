@@ -17,7 +17,7 @@ import download
 app = Flask(__name__)
 
 # Get the absolute path to the model file
-model_path = os.path.join(os.path.dirname(_file_), 'best_model92.h5')
+model_path = os.path.join(os.path.dirname(__file__), 'best_model92.h5')
 
 # Load the model using the absolute path
 model = tf.keras.models.load_model(model_path)
