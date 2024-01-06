@@ -9,6 +9,7 @@ import numpy as np
 import tensorflow as tf
 import tempfile
 import os
+import time
 from gunicorn.app.base import BaseApplication
 
 import download
@@ -46,11 +47,20 @@ def predict():
     img_array = np.expand_dims(img_array, axis=0)
     img_array /= 255.0
 
+    # Get the start time
+    start_time = time.time()
+
     # Make predictions
     predictions = model.predict(img_array)
     predicted_class = np.argmax(predictions)
     predicted_label = class_labels[predicted_class]
     confidence_score = predictions[0][predicted_class]
+
+    # Get the end time
+    end_time = time.time()
+
+    # Compute the elapsed time
+    elapsed_time = end_time - start_time
 
     # Cleanup: Remove the temporary file
     temp_file.close()
@@ -59,7 +69,8 @@ def predict():
     # Prepare the response
     response = {
         'predicted_label': predicted_label,
-        'confidence_score': float(confidence_score)
+        'confidence_score': float(confidence_score),
+        'elapsed_time': elapsed_time
     }
     return jsonify(response)
 
