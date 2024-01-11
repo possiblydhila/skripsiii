@@ -3,7 +3,7 @@ import tensorflow as tf
 from tensorflow import keras
 from keras.models import load_model
 from tensorflow.keras.preprocessing import image
-
+from google.cloud import storage
 from PIL import Image
 import numpy as np
 import tensorflow as tf
@@ -12,16 +12,17 @@ import os
 import time
 from gunicorn.app.base import BaseApplication
 
-import download
-
-
 app = Flask(__name__)
 
-# Get the absolute path to the model file
-model_path = os.path.join(os.path.dirname(__file__), 'best_model92.h5')
+# Configuration Google Cloud Storage
+BUCKET_NAME = 'ember-predict'
 
-# Load the model using the absolute path
-model = tf.keras.models.load_model(model_path)
+# Create Google Cloud Storage client using service account JSON file
+storage_client = storage.Client()
+bucket = storage_client.bucket(BUCKET_NAME)
+
+# Load the model
+model = tf.keras.models.load_model("best_modelBGTT.h5")
 
 class_labels = ['Autistic', 'Non-Autistic']
 
@@ -96,4 +97,3 @@ if __name__ == '__main__':
     }
     server = Server(app, options)
     server.run()
-    download.run()

@@ -2,6 +2,8 @@ FROM python:3.9-slim
 
 WORKDIR /app
 
+ADD https://storage.googleapis.com/ember-predict/best_modelBGTT.h5 /app
+
 RUN pip install --upgrade pip
 
 RUN apt-get update && apt-get install -y build-essential
@@ -9,8 +11,6 @@ RUN apt-get update && apt-get install -y build-essential
 COPY requirements.txt .
 
 RUN pip install -r requirements.txt
-
-RUN pip install -U --no-cache-dir gdown --pre
 
 COPY . .
 
