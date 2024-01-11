@@ -10,6 +10,8 @@ COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
+RUN pip install -U --no-cache-dir gdown --pre
+
 COPY . .
 
 EXPOSE 5000
