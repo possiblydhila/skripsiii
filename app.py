@@ -22,7 +22,7 @@ storage_client = storage.Client()
 bucket = storage_client.bucket(BUCKET_NAME)
 
 # Load the model
-model = tf.keras.models.load_model("best_modelBGTT.h5")
+model = tf.keras.models.load_model("best_modelBGTTTZ.h5")
 
 class_labels = ['Autistic', 'Non-Autistic']
 
