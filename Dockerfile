@@ -2,7 +2,7 @@ FROM python:3.9-slim
 
 WORKDIR /app
 
-ADD https://storage.googleapis.com/ember-predict/best_modelBGTT.h5 /app
+ADD https://storage.googleapis.com/bak-predict/best_modelBGTTTZ.h5 /app
 
 RUN pip install --upgrade pip
 

@@ -15,7 +15,7 @@ from gunicorn.app.base import BaseApplication
 app = Flask(__name__)
 
 # Configuration Google Cloud Storage
-BUCKET_NAME = 'ember-predict'
+BUCKET_NAME = 'bak-predict'
 
 # Create Google Cloud Storage client using service account JSON file
 storage_client = storage.Client()
